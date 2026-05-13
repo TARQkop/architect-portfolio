@@ -1,27 +1,29 @@
 # My Portfolio
 
-A modern architectural portfolio built with React, TypeScript, and Vite. The site presents selected work, services, an about section, and a contact area through a refined visual system inspired by editorial architecture portfolios.
+Professional architectural portfolio built with React, TypeScript, and Vite. The website presents selected projects, services, personal profile content, and contact information through a clean editorial layout.
+
+![Portfolio preview](public/image.png)
 
 ## Overview
 
-This project is a responsive single-page portfolio for an architectural designer. It focuses on clean composition, subtle motion, project filtering, custom illustrations, and a calm visual identity.
+My Portfolio is a responsive single-page application designed for an architectural designer. It focuses on strong visual hierarchy, refined spacing, smooth interactions, and a polished presentation style suitable for personal branding and client-facing work.
 
 ## Features
 
-- Responsive single-page layout
-- Hero section with custom illustration and portfolio stats
+- Responsive layout for desktop, tablet, and mobile screens
+- Hero section with portfolio highlights and visual identity
 - Selected work section with project cards and category filtering
 - About, services, contact, and footer sections
-- Smooth in-view animations using Intersection Observer
-- Custom cursor effect on desktop
+- Smooth in-view animations powered by Intersection Observer
+- Custom cursor experience on desktop
 - Mobile navigation menu
 - TypeScript-first React component structure
-- Production build with Vite
-- ESLint configured for code quality
+- Production-ready Vite build setup
+- ESLint configuration for code quality
 
 ## Tech Stack
 
-- React
+- React 19
 - TypeScript
 - Vite
 - ESLint
@@ -33,7 +35,8 @@ This project is a responsive single-page portfolio for an architectural designer
 my-portfolio/
 |-- public/
 |   |-- favicon.svg
-|   `-- icons.svg
+|   |-- icons.svg
+|   `-- image.png
 |-- src/
 |   |-- components/
 |   |   |-- Header.tsx
@@ -74,7 +77,7 @@ Start the development server:
 npm run dev
 ```
 
-Open the local URL shown in the terminal, usually:
+Open the local URL shown in the terminal. Vite usually runs on:
 
 ```text
 http://localhost:5173/
@@ -82,33 +85,16 @@ http://localhost:5173/
 
 ## Available Scripts
 
-```bash
-npm run dev
-```
-
-Runs the app in development mode with Vite.
-
-```bash
-npm run build
-```
-
-Creates a production build in the `dist` folder.
-
-```bash
-npm run lint
-```
-
-Runs ESLint across the project.
-
-```bash
-npm run preview
-```
-
-Serves the production build locally for preview.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Starts the Vite development server. |
+| `npm run build` | Builds the app for production in the `dist` directory. |
+| `npm run lint` | Runs ESLint across the project. |
+| `npm run preview` | Serves the production build locally for preview. |
 
 ## Deployment
 
-The project is ready to deploy on platforms such as Vercel, Netlify, GitHub Pages, or any static hosting service.
+The project can be deployed on any static hosting platform, including Vercel, Netlify, GitHub Pages, or similar services.
 
 Recommended deployment settings:
 
@@ -120,7 +106,7 @@ Framework: Vite / React
 
 ## Production Check
 
-Before deploying, run:
+Before publishing a new version, run:
 
 ```bash
 npm run build
@@ -131,12 +117,13 @@ Both commands should complete without errors.
 
 ## Customization
 
-Main content can be edited from:
+Main project content can be updated from:
 
-- `src/data/index.ts` for navigation, projects, services, and categories
-- `src/components/HeroSection.tsx` for hero copy and headline
+- `src/data/index.ts` for navigation items, projects, services, and categories
+- `src/components/HeroSection.tsx` for hero copy and headline content
 - `src/styles/index.ts` for colors, spacing, typography, and layout styles
 - `index.html` for page title, meta tags, and favicon
+- `public/image.png` for the README preview image
 
 ## License
 
