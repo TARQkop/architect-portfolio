@@ -1,12 +1,12 @@
 # My Portfolio
 
-Professional architectural portfolio built with React, TypeScript, and Vite. The website presents selected projects, services, personal profile content, and contact information through a clean editorial layout.
+Professional architectural portfolio built with React, TypeScript, and Vite. The website presents selected projects, services, personal profile content, and contact information through a clean editorial layout with responsive sections, smooth navigation, and refined hover interactions.
 
 ![Portfolio preview](public/image.png)
 
 ## Overview
 
-My Portfolio is a responsive single-page application designed for an architectural designer. It focuses on strong visual hierarchy, refined spacing, smooth interactions, and a polished presentation style suitable for personal branding and client-facing work.
+My Portfolio is a responsive single-page application designed for an architectural designer. It focuses on strong visual hierarchy, refined spacing, slow premium-feeling interactions, smooth section scrolling, and a polished presentation style suitable for personal branding and client-facing work.
 
 ## Features
 
@@ -14,8 +14,10 @@ My Portfolio is a responsive single-page application designed for an architectur
 - Hero section with portfolio highlights and visual identity
 - Selected work section with project cards and category filtering
 - About, services, contact, and footer sections
+- Smooth custom scrolling between page sections
+- Professional hover states for navigation, hero buttons, cards, and links
 - Smooth in-view animations powered by Intersection Observer
-- Custom cursor experience on desktop
+- Custom cursor experience on desktop, hidden on tablet and mobile
 - Mobile navigation menu
 - TypeScript-first React component structure
 - Production-ready Vite build setup
@@ -28,6 +30,7 @@ My Portfolio is a responsive single-page application designed for an architectur
 - Vite
 - ESLint
 - CSS-in-JS style objects
+- Global CSS for interaction states
 
 ## Project Structure
 
@@ -39,6 +42,7 @@ my-portfolio/
 |   `-- image.png
 |-- src/
 |   |-- components/
+|   |   |-- Cursor.tsx
 |   |   |-- Header.tsx
 |   |   |-- HeroSection.tsx
 |   |   |-- WorkSection.tsx
@@ -52,6 +56,7 @@ my-portfolio/
 |   |-- hooks/
 |   |   `-- index.ts
 |   |-- styles/
+|   |   |-- global.css
 |   |   `-- index.ts
 |   |-- types/
 |   |   `-- index.ts
@@ -122,6 +127,8 @@ Main project content can be updated from:
 - `src/data/index.ts` for navigation items, projects, services, and categories
 - `src/components/HeroSection.tsx` for hero copy and headline content
 - `src/styles/index.ts` for colors, spacing, typography, and layout styles
+- `src/styles/global.css` for hover states, focus states, and interaction timing
+- `src/hooks/index.ts` for scroll, in-view, mobile detection, and smooth hash scrolling hooks
 - `index.html` for page title, meta tags, and favicon
 - `public/image.png` for the README preview image
 
