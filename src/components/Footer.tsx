@@ -1,11 +1,22 @@
 import { S, TOKEN } from "../styles";
+import { useIsMobile } from "../hooks";
 
 const SOCIAL_LINKS = ["Instagram", "LinkedIn", "Email"] as const;
 
 export function Footer() {
+  const isMobile = useIsMobile();
+
   return (
-    <footer style={S.footer}>
-      <div style={{ ...S.container, ...S.footerInner }}>
+    <footer style={{ ...S.footer, ...(isMobile ? { padding: "2rem 1.25rem" } : {}) }}>
+      <div
+        style={{
+          ...S.container,
+          ...S.footerInner,
+          ...(isMobile
+            ? { alignItems: "flex-start", flexDirection: "column" }
+            : {}),
+        }}
+      >
 
         {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
@@ -19,7 +30,7 @@ export function Footer() {
         </p>
 
         {/* Social links */}
-        <div style={S.footerLinks}>
+        <div style={{ ...S.footerLinks, ...(isMobile ? { flexWrap: "wrap", gap: "1rem" } : {}) }}>
           {SOCIAL_LINKS.map((link) => (
             <a key={link} href="#" style={S.footerLink}>
               {link}

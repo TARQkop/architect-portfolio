@@ -1,4 +1,4 @@
-import { useScrollY, usePlayfairFont } from "./hooks";
+import { useScrollY, usePlayfairFont, useSmoothHashScroll } from "./hooks";
 import {
   Cursor,
   Header,
@@ -13,6 +13,7 @@ import { TOKEN } from "./styles";
 
 export default function App() {
   usePlayfairFont();
+  useSmoothHashScroll();
   const scrollY = useScrollY();
 
   return (

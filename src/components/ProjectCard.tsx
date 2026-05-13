@@ -6,6 +6,7 @@ interface ProjectCardProps {
   index:    number;
   isActive: boolean;
   visible:  boolean;
+  isMobile: boolean;
   onToggle: () => void;
 }
 
@@ -14,13 +15,16 @@ export function ProjectCard({
   index,
   isActive,
   visible,
+  isMobile,
   onToggle,
 }: ProjectCardProps) {
   return (
     <article
+      className="interactive-card"
       onClick={onToggle}
       style={{
         ...S.projectCard,
+        ...(isMobile ? { padding: "1.35rem 1.2rem 1.15rem" } : {}),
         background: project.color,
         opacity:    visible ? 1 : 0,
         transform:  visible ? "translateY(0)" : "translateY(40px)",
@@ -28,10 +32,12 @@ export function ProjectCard({
       }}
     >
       {/* Header row */}
-      <div style={S.projectTop}>
+      <div style={{ ...S.projectTop, ...(isMobile ? { gap: "1rem" } : {}) }}>
         <div>
           <p style={{ ...S.projectCat, color: project.accent }}>{project.category}</p>
-          <h3 style={S.projectTitle}>{project.title}</h3>
+          <h3 style={{ ...S.projectTitle, ...(isMobile ? { fontSize: "1.2rem" } : {}) }}>
+            {project.title}
+          </h3>
         </div>
         <div style={{ ...S.projectToggle, borderColor: project.accent, color: project.accent }}>
           {isActive ? "−" : "+"}
@@ -39,7 +45,7 @@ export function ProjectCard({
       </div>
 
       {/* Meta */}
-      <div style={S.projectMeta}>
+      <div style={{ ...S.projectMeta, ...(isMobile ? { flexWrap: "wrap" } : {}) }}>
         <span style={S.metaItem}>{project.year}</span>
         <span style={{ fontSize: "0.9rem", color: project.accent }}>·</span>
         <span style={S.metaItem}>{project.location}</span>
@@ -48,7 +54,7 @@ export function ProjectCard({
       {/* Expandable content */}
       <div
         style={{
-          maxHeight:  isActive ? 300 : 0,
+          maxHeight:  isActive ? (isMobile ? 420 : 300) : 0,
           overflow:   "hidden",
           transition: "max-height 0.5s cubic-bezier(0.16,1,0.3,1)",
         }}

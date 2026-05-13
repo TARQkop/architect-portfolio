@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
 import { S, TOKEN, animate } from "../styles";
-import { useInView } from "../hooks";
+import { useInView, useIsMobile } from "../hooks";
 import type { FormState } from "../types";
 
 const PROJECT_OPTIONS = [
@@ -19,6 +19,7 @@ export function ContactSection() {
   const [ref, visible] = useInView();
   const [form, setForm]  = useState<FormState>(INITIAL_FORM);
   const [sent, setSent]  = useState(false);
+  const isMobile = useIsMobile();
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -32,13 +33,17 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" ref={ref} style={S.sectionTinted}>
+    <section
+      id="contact"
+      ref={ref}
+      style={{ ...S.sectionTinted, ...(isMobile ? { padding: "4.5rem 1.25rem" } : {}) }}
+    >
       <div style={{ ...S.container, maxWidth: 680 }}>
 
         {/* Header */}
         <div style={{ ...S.sectionHeader, ...animate.fadeIn(visible) }}>
           <p style={S.eyebrow}>Contact</p>
-          <h2 style={S.sectionTitle}>
+          <h2 style={{ ...S.sectionTitle, ...(isMobile ? { fontSize: "2rem" } : {}) }}>
             Start a conversation<br />about your project.
           </h2>
           <p style={{ ...S.bodyText, marginTop: "1rem" }}>
@@ -52,7 +57,12 @@ export function ContactSection() {
           <div style={{ ...S.contactForm, ...animate.fadeIn(visible, 0.1) }}>
 
             {/* Name + Email */}
-            <div style={S.formRow}>
+            <div
+              style={{
+                ...S.formRow,
+                ...(isMobile ? { gridTemplateColumns: "1fr", gap: 0 } : {}),
+              }}
+            >
               <div style={S.formGroup}>
                 <label style={S.label}>Full Name</label>
                 <input
@@ -105,7 +115,7 @@ export function ContactSection() {
               />
             </div>
 
-            <button onClick={handleSubmit} style={S.submitBtn}>
+            <button onClick={handleSubmit} style={{ ...S.submitBtn, ...(isMobile ? { minHeight: 48 } : {}) }}>
               Send Message <span style={{ marginLeft: 8 }}>→</span>
             </button>
           </div>

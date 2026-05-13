@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { S } from "../styles";
 import { NAV_ITEMS } from "../data";
+import { useIsMobile } from "../hooks";
 
 interface HeaderProps {
   scrollY: number;
@@ -8,22 +9,20 @@ interface HeaderProps {
 
 export function Header({ scrollY }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const isElevated = scrollY > 40;
 
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
-
-    onResize();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
-
   return (
-    <header style={{ ...S.header, ...(isElevated ? S.headerElevated : {}) }}>
+    <header
+      style={{
+        ...S.header,
+        ...(isElevated ? S.headerElevated : {}),
+        ...(isMobile ? { padding: "1rem 1.25rem" } : {}),
+      }}
+    >
 
       {/* Logo */}
-      <a href="#hero" style={S.logo}>
+      <a href="#hero" className="site-logo" style={S.logo}>
         <span style={S.logoMark}>✦</span>
         <span style={S.logoText}>Layla Hassan</span>
       </a>
@@ -31,11 +30,11 @@ export function Header({ scrollY }: HeaderProps) {
       {/* Desktop nav */}
       <nav style={{ ...S.nav, display: isMobile ? "none" : "flex" }}>
         {NAV_ITEMS.map((item) => (
-          <a key={item.label} href={item.href} style={S.navLink}>
+          <a key={item.label} href={item.href} className="nav-link" style={S.navLink}>
             {item.label}
           </a>
         ))}
-        <a href="#contact" style={S.navCta}>Let&apos;s Talk</a>
+        <a href="#contact" className="nav-cta" style={S.navCta}>Let&apos;s Talk</a>
       </nav>
 
       {/* Hamburger — visible on mobile via inline display override */}
@@ -66,6 +65,7 @@ export function Header({ scrollY }: HeaderProps) {
             <a
               key={item.label}
               href={item.href}
+              className="mobile-nav-link"
               style={S.mobileNavLink}
               onClick={() => setMenuOpen(false)}
             >

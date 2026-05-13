@@ -45,3 +45,68 @@ export function usePlayfairFont(): void {
     document.head.appendChild(link);
   }, []);
 }
+
+export function useIsMobile(breakpoint = 768): boolean {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < breakpoint);
+
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
+export function useSmoothHashScroll(duration = 950): void {
+  useEffect(() => {
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const onClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      const anchor = target?.closest<HTMLAnchorElement>('a[href^="#"]');
+      if (!anchor) return;
+
+      const hash = anchor.getAttribute("href");
+      if (!hash || hash === "#") return;
+
+      const section = document.querySelector<HTMLElement>(hash);
+      if (!section) return;
+
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion) return;
+
+      event.preventDefault();
+
+      const headerOffset = 72;
+      const startY = window.scrollY;
+      const targetY = Math.max(
+        section.getBoundingClientRect().top + window.scrollY - headerOffset,
+        0
+      );
+      const distance = targetY - startY;
+      const startTime = performance.now();
+
+      const scrollStep = (now: number) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        window.scrollTo(0, startY + distance * easeOutCubic(progress));
+
+        if (progress < 1) {
+          requestAnimationFrame(scrollStep);
+          return;
+        }
+
+        window.history.pushState(null, "", hash);
+      };
+
+      requestAnimationFrame(scrollStep);
+    };
+
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, [duration]);
+}

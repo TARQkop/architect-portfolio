@@ -1,12 +1,16 @@
 import { useEffect, useRef } from "react";
 import { S } from "../styles";
+import { useIsMobile } from "../hooks";
 
 export function Cursor() {
   const pos     = useRef({ x: -100, y: -100 });
   const dotRef  = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const isTabletOrMobile = useIsMobile(1024);
 
   useEffect(() => {
+    if (isTabletOrMobile || !window.matchMedia("(pointer: fine)").matches) return;
+
     const onMouseMove = (e: MouseEvent) => {
       pos.current = { x: e.clientX, y: e.clientY };
       if (dotRef.current) {
@@ -30,7 +34,9 @@ export function Cursor() {
       window.removeEventListener("mousemove", onMouseMove);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [isTabletOrMobile]);
+
+  if (isTabletOrMobile) return null;
 
   return (
     <>

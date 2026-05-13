@@ -1,5 +1,5 @@
 import { S, animate } from "../styles";
-import { useInView } from "../hooks";
+import { useInView, useIsMobile } from "../hooks";
 import { AboutIllustration } from "./AboutIllustration";
 
 const STATS = [
@@ -10,13 +10,29 @@ const STATS = [
 
 export function AboutSection() {
   const [ref, visible] = useInView();
+  const isMobile = useIsMobile();
 
   return (
-    <section id="about" ref={ref} style={S.sectionDark}>
-      <div style={{ ...S.container, ...S.aboutGrid }}>
+    <section
+      id="about"
+      ref={ref}
+      style={{ ...S.sectionDark, ...(isMobile ? { padding: "4.5rem 1.25rem" } : {}) }}
+    >
+      <div
+        style={{
+          ...S.container,
+          ...S.aboutGrid,
+          ...(isMobile ? { gridTemplateColumns: "1fr", gap: "2.5rem" } : {}),
+        }}
+      >
 
         {/* Illustration */}
-        <div style={animate.fadeIn(visible, 0, "x", -40)}>
+        <div
+          style={{
+            ...animate.fadeIn(visible, 0, "x", -40),
+            ...(isMobile ? { maxWidth: 380, width: "100%", margin: "0 auto" } : {}),
+          }}
+        >
           <AboutIllustration />
         </div>
 
@@ -24,7 +40,7 @@ export function AboutSection() {
         <div style={animate.fadeIn(visible, 0.15, "x", 40)}>
           <p style={S.eyebrowLight}>About</p>
 
-          <h2 style={S.sectionTitleLight}>
+          <h2 style={{ ...S.sectionTitleLight, ...(isMobile ? { fontSize: "2rem" } : {}) }}>
             Architecture as a<br />form of listening.
           </h2>
 
@@ -41,7 +57,14 @@ export function AboutSection() {
           </p>
 
           {/* Stats row */}
-          <div style={{ display: "flex", gap: "2.5rem", marginTop: "2.5rem" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: isMobile ? "1.2rem" : "2.5rem",
+              marginTop: "2.5rem",
+              ...(isMobile ? { justifyContent: "space-between", flexWrap: "wrap" } : {}),
+            }}
+          >
             {STATS.map(({ num, label }) => (
               <div key={label}>
                 <p style={S.aboutStatNum}>{num}</p>
